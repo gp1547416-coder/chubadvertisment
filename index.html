@@ -5,176 +5,188 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         :root {
-            --vercel-black: #000000;
-            --vercel-white: #ffffff;
-            --vercel-gray: #888888;
-            --vercel-orange: #f5a623;
-            --vercel-border: #333333;
+            --v-black: #000000;
+            --v-white: #ffffff;
+            --v-gray: #888888;
+            --v-orange: #f5a623;
+            --v-border: #333333;
+            --v-dark-gray: #111111;
         }
 
         body {
-            background-color: var(--vercel-black);
-            font-family: 'Geist', 'Inter', -apple-system, sans-serif;
+            background-color: var(--v-black);
+            font-family: 'Inter', -apple-system, system-ui, sans-serif;
             margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            color: var(--v-white);
         }
 
         .ad-container {
-            background-color: var(--vercel-black);
-            color: var(--vercel-white);
-            width: 900px;
-            padding: 60px;
+            background-color: var(--v-black);
+            width: 850px;
+            padding: 50px;
             display: flex;
-            border: 1px solid var(--vercel-border);
-            border-radius: 8px;
+            border: 1px solid var(--v-border);
             position: relative;
             overflow: hidden;
         }
 
-        .content-section {
-            flex: 1.2;
-            z-index: 2;
+        .cta-header {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            background-color: var(--v-orange);
+            color: var(--v-white);
+            padding: 10px 25px;
+            border-radius: 5px;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 14px;
         }
 
-        .logo-area {
+        .content {
+            flex: 1.2;
+        }
+
+        .logo-wrap {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             margin-bottom: 40px;
         }
 
-        .logo-icon {
-            width: 24px;
-            height: 24px;
-            background-color: var(--vercel-white);
+        /* CSS ONLY LOGO */
+        .css-logo {
+            width: 28px;
+            height: 28px;
+            position: relative;
+            background: var(--v-white);
             clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
         }
 
         .logo-text {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 700;
             letter-spacing: -0.5px;
         }
 
         h1 {
-            font-size: 48px;
+            font-size: 44px;
             line-height: 1.1;
-            margin: 0 0 30px 0;
+            margin: 0 0 25px 0;
             font-weight: 800;
-            letter-spacing: -2px;
+            letter-spacing: -1.5px;
         }
 
-        .highlight {
-            color: var(--vercel-orange);
-        }
+        .highlight { color: var(--v-orange); }
 
         p {
-            color: var(--vercel-gray);
-            font-size: 16px;
+            color: var(--v-gray);
+            font-size: 15px;
             line-height: 1.6;
             margin-bottom: 25px;
-            max-width: 450px;
+            max-width: 440px;
         }
 
         h2 {
-            font-size: 22px;
-            margin: 40px 0 15px 0;
+            font-size: 20px;
+            margin-top: 35px;
             font-weight: 600;
         }
 
-        .cta-button {
-            position: absolute;
-            top: 40px;
-            right: 40px;
-            background-color: var(--vercel-orange);
-            color: var(--vercel-white);
-            padding: 12px 32px;
-            border-radius: 6px;
-            font-weight: 600;
-            text-decoration: none;
-            font-size: 14px;
-            transition: opacity 0.2s;
-        }
-
-        .cta-button:hover {
-            opacity: 0.9;
-        }
-
-        .visual-section {
+        /* RIGHT SECTION */
+        .visuals {
             flex: 1;
+            padding-left: 40px;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start;
-            padding-left: 40px;
         }
 
-        .image-placeholder {
-            background-color: #222;
+        /* CSS GENERATED "IMAGE" BOX */
+        .logo-display-box {
             width: 100%;
-            aspect-ratio: 16/10;
-            border-radius: 4px;
+            aspect-ratio: 1.5;
+            background-color: #d1d1d1; /* The grey fill from your image */
+            border-radius: 2px;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: var(--vercel-gray);
-            font-weight: 500;
             margin-bottom: 20px;
-            border: 1px dashed #444;
+            position: relative;
         }
 
-        .image-caption {
+        /* Pure CSS Graphic inside the box */
+        .inner-graphic {
+            width: 80px;
+            height: 80px;
+            border: 8px solid #b0b0b0;
+            border-radius: 12px;
+            position: relative;
+        }
+
+        .inner-graphic::after {
+            content: "";
+            position: absolute;
+            top: 20%;
+            left: 20%;
+            width: 60%;
+            height: 40%;
+            background: #b0b0b0;
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+        }
+
+        .title-meta {
             font-size: 18px;
             font-weight: 600;
-            margin-bottom: 8px;
+            margin-bottom: 5px;
         }
 
-        .image-subtext {
-            color: var(--vercel-gray);
+        .desc-meta {
+            color: var(--v-gray);
             font-size: 14px;
         }
 
-        /* Vercel Geometric Decor */
-        .decor-blob {
+        /* Abstract Background Decor */
+        .corner-decor {
             position: absolute;
-            bottom: -50px;
-            left: -50px;
-            width: 200px;
-            height: 200px;
-            background: linear-gradient(135deg, #333 0%, transparent 100%);
-            clip-path: polygon(0 0, 100% 100%, 0 100%);
-            z-index: 1;
+            bottom: -40px;
+            left: -40px;
+            width: 150px;
+            height: 150px;
+            background: #1a1a1a;
+            clip-path: polygon(0 0, 100% 100%, 0% 100%);
         }
     </style>
 </head>
 <body>
 
     <div class="ad-container">
-        <a href="#" class="cta-button">Get Started</a>
-        <div class="decor-blob"></div>
+        <a href="#" class="cta-header">Get Started</a>
+        <div class="corner-decor"></div>
 
-        <div class="content-section">
-            <div class="logo-area">
-                <div class="logo-icon"></div>
+        <div class="content">
+            <div class="logo-wrap">
+                <div class="css-logo"></div>
                 <span class="logo-text">Centurion</span>
             </div>
 
-            <h1>C Hub: The <span class="highlight">"Best"</span> Way to Automate Gameplay</h1>
+            <h1>C Hub: The <span class="highlight">"Best"</span> Way to Monetize Your Content</h1>
 
-            <p>One particularly effective method of optimizing your experience is through the use of Centurion Hub. But what exactly is C Hub, and why is it one of the best options for modern players?</p>
+            <p>One particularly effective method of monetizing your content is through the use of Centurion Hub. But what exactly is C Hub, and why is it one of the best options for content creators?</p>
 
-            <h2>What is C Hub?</h2>
-            <p>Centurion is a platform that allows power users to deploy 99+ scripts with zero latency. When you connect C Hub to your session, you can route multiple utilities through a single minimalist interface.</p>
+            <h2>What is Centurion?</h2>
+            <p>Centurion is a platform that allows content creators to monetize their scripts. When you create a link to specific content, a file, or a website, you can route it through C Hub.</p>
         </div>
 
-        <div class="visual-section">
-            <div class="image-placeholder">
-                PREMIUM INTERFACE PREVIEW
+        <div class="visuals">
+            <div class="logo-display-box">
+                <div class="inner-graphic"></div>
             </div>
-            <div class="image-caption">Apex V9 UI</div>
-            <div class="image-subtext">Optimized for Vercel Performance</div>
+            <div class="title-meta">Apex V9 UI</div>
+            <div class="desc-meta">Fully CSS-Rendered Interface</div>
         </div>
     </div>
 
