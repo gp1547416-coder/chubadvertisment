@@ -3,213 +3,129 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechWiki | The Digital Manual</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        :root {
-            --v-black: #000000;
-            --v-white: #ffffff;
-            --v-gray: #888888;
-            --v-orange: #f5a623;
-            --v-border: #333333;
-            --v-code-bg: #0a0a0a;
-        }
-
-        body {
-            background-color: var(--v-black);
-            font-family: 'Inter', -apple-system, sans-serif;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            color: var(--v-white);
-            overflow: hidden;
-        }
-
-        .ad-container {
-            background-color: var(--v-black);
-            width: 880px;
-            padding: 60px;
-            display: flex;
-            border: 1px solid var(--v-border);
-            border-radius: 4px;
-            position: relative;
-            z-index: 10;
-        }
-
-        .cta-header {
-            position: absolute;
-            top: 40px;
-            right: 40px;
-            background-color: var(--v-white);
-            color: var(--v-black);
-            padding: 10px 28px;
-            border-radius: 5px;
-            font-weight: 600;
-            border: 1px solid var(--v-white);
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-size: 13px;
-        }
-
-        .cta-header:hover {
-            background-color: var(--v-black);
-            color: var(--v-white);
-        }
-
-        .content { flex: 1.1; }
-
-        .logo-wrap {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 50px;
-        }
-
-        .css-logo {
-            width: 24px;
-            height: 24px;
-            background: var(--v-white);
-            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-        }
-
-        .logo-text { font-size: 20px; font-weight: 700; letter-spacing: -1px; }
-
-        h1 {
-            font-size: 46px;
-            line-height: 1.05;
-            margin: 0 0 30px 0;
-            font-weight: 800;
-            letter-spacing: -2px;
-        }
-
-        .highlight { color: var(--v-orange); }
-
-        p {
-            color: var(--v-gray);
-            font-size: 16px;
-            line-height: 1.6;
-            margin-bottom: 25px;
-            max-width: 420px;
-        }
-
-        /* TERMINAL COMPONENT */
-        .visual-terminal {
-            flex: 1;
-            margin-left: 40px;
-            background-color: var(--v-code-bg);
-            border: 1px solid var(--v-border);
-            border-radius: 8px;
-            padding: 24px;
-            font-family: 'Courier New', monospace;
-            font-size: 12px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-        }
-
-        .code-line { margin-bottom: 6px; white-space: nowrap; }
-        .keyword { color: #ff79c6; }
-        .func { color: #50fa7b; }
-        .comment { color: #6272a4; }
-
-        /* TOAST NOTIFICATION */
-        #toast {
-            position: fixed;
-            bottom: -100px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: var(--v-white);
-            color: var(--v-black);
-            padding: 16px 32px;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 14px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.8);
-            transition: bottom 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            z-index: 1000;
-            border: 1px solid var(--v-white);
-        }
-
-        #toast.show { bottom: 40px; }
-
-        /* CONFETTI PARTICLE */
-        .confetti {
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            background-color: var(--v-orange);
-            z-index: 5;
-        }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #10b981; border-radius: 10px; }
     </style>
 </head>
 <body>
+    <div id="root"></div>
 
-    <div id="toast">Code for C hub has been successfully copied to clipboard. Paste this in your executor for roblox if you have one</div>
+    <script type="text/babel">
+        const { useState, useEffect } = React;
 
-    <div class="ad-container">
-        <button class="cta-header" onclick="deployHub()">Get Started</button>
+        const articles = [
+            { id: 1, title: "How to Understand Google", icon: "search", content: "Google started as PageRank at Stanford and grew into Alphabet, a global AI and search powerhouse." },
+            { id: 2, title: "How Apple Redefined Hardware", icon: "smartphone", content: "From the Macintosh to the iPhone, Apple focuses on vertical integration and premium user experience." },
+            { id: 3, title: "The Rise of Tesla & EVs", icon: "zap", content: "Tesla shifted the global automotive industry toward sustainable energy and software-defined vehicles." },
+            { id: 4, title: "How Semiconductors Work", icon: "cpu", content: "Silicon chips are the brain of the modern world, etched with billions of transistors via lithography." },
+            { id: 5, title: "Understanding Cloud Computing", icon: "cloud", content: "AWS, Azure, and Google Cloud allow businesses to rent supercomputing power over the internet." },
+            { id: 6, title: "How Blockchain Secures Data", icon: "shield", content: "A decentralized ledger that ensures transparency and security without a central authority." },
+            { id: 7, title: "The Future of Quantum Computing", icon: "atom", content: "Using subatomic particles to solve calculations that would take millions of years for a standard PC." },
+            { id: 8, title: "How SpaceX Reaches Mars", icon: "rocket", content: "Reusable rocketry is lowering the cost of space travel and making humanity a multi-planetary species." },
+            { id: 9, title: "Understanding Generative AI", icon: "bot", content: "Large Language Models like Gemini and GPT-4 use neural networks to predict and create human-like text." },
+            { id: 10, title: "How 5G Changes Connectivity", icon: "antenna", content: "Ultra-low latency and massive bandwidth enable the Internet of Things (IoT) at a global scale." },
+            // ... (Imagine 30 more topics added here to fill the list)
+            { id: 11, title: "The Metaverse Explained", icon: "glasses", content: "Blending VR and AR to create a persistent 3D digital space for work and play." },
+            { id: 12, title: "How Cybersecurity Protects You", icon: "lock", content: "Encryption and firewalls form the front line against global digital threats." },
+            { id: 13, title: "The Evolution of Video Games", icon: "gamepad-2", content: "From Pong to ray-traced open worlds, gaming pushes the limits of consumer hardware." },
+            { id: 14, title: "How Social Algorithms Work", icon: "users", content: "Engagement-based ranking determines what you see on TikTok, Instagram, and X." },
+            { id: 15, title: "Understanding Open Source", icon: "code-2", content: "How Linux and GitHub allow the world to build software together for free." }
+        ];
 
-        <div class="content">
-            <div class="logo-wrap">
-                <div class="css-logo"></div>
-                <span class="logo-text">Centurion / Apex</span>
-            </div>
-
-            <h1>C Hub: The <span class="highlight">"Best"</span> Way to Deploy Scripts</h1>
-
-            <p>One-click deployment for the ultimate Vercel-inspired Roblox hub. 100+ functions. Zero lag. Pure performance.</p>
-        </div>
-
-        <div class="visual-terminal">
-            <div class="code-line"><span class="comment">-- Init Apex V9</span></div>
-            <div class="code-line"><span class="keyword">local</span> Apex = <span class="func">loadstring</span>(...)()</div>
-            <div class="code-line">Apex:<span class="func">Connect</span>({</div>
-            <div class="code-line">&nbsp;&nbsp;theme = <span class="string">"Vercel"</span>,</div>
-            <div class="code-line">&nbsp;&nbsp;scripts = <span class="string">"99+"</span></div>
-            <div class="code-line">})</div>
-            <div class="code-line"></div>
-            <div class="code-line"><span class="func">> Ready for Deployment</span></div>
-        </div>
-    </div>
-
-    <script>
-        function deployHub() {
-            // THE ACTUAL APEX V9 CODE (Optimized for clipboard)
-            const apexCode = `-- Centurion Apex V9 Hub\nlocal Players = game:GetService("Players")\nlocal RunService = game:GetService("RunService")\nlocal TweenService = game:GetService("TweenService")\n-- [Full Script Built in Previous Step Embedded Here]\nloadstring(game:HttpGet("https://raw.githubusercontent.com/Centurion/Hub/main/ApexV9.lua"))()`;
-
-            navigator.clipboard.writeText(apexCode).then(() => {
-                // Show Toast
-                const toast = document.getElementById('toast');
-                toast.classList.add('show');
-                
-                // Trigger Confetti
-                createConfetti();
-
-                setTimeout(() => {
-                    toast.classList.remove('show');
-                }, 5000);
-            });
+        // Fill up to 40 for the UI demo
+        const fullArticles = [...articles];
+        for (let i = 16; i <= 40; i++) {
+            fullArticles.push({ id: i, title: `Article #${i}: Tech Deep Dive`, icon: "file-text", content: "Detailed technical analysis of modern digital infrastructure and its societal impact." });
         }
 
-        function createConfetti() {
-            for (let i = 0; i < 30; i++) {
-                const confetti = document.createElement('div');
-                confetti.className = 'confetti';
-                confetti.style.left = Math.random() * 100 + 'vw';
-                confetti.style.top = '100vh';
-                confetti.style.backgroundColor = Math.random() > 0.5 ? '#f5a623' : '#ffffff';
-                document.body.appendChild(confetti);
+        const App = () => {
+            const [loading, setLoading] = useState(true);
+            const [activeArticle, setActiveArticle] = useState(fullArticles[0]);
 
-                const animation = confetti.animate([
-                    { transform: 'translateY(0) rotate(0)', opacity: 1 },
-                    { transform: `translateY(-100vh) translateX(${Math.random() * 200 - 100}px) rotate(${Math.random() * 360}deg)`, opacity: 0 }
-                ], {
-                    duration: Math.random() * 1000 + 1000,
-                    easing: 'cubic-bezier(0, .9, .57, 1)'
-                });
+            useEffect(() => {
+                const timer = setTimeout(() => {
+                    setLoading(false);
+                    lucide.createIcons();
+                }, 1500);
+                return () => clearTimeout(timer);
+            }, []);
 
-                animation.onfinish = () => confetti.remove();
+            useEffect(() => { lucide.createIcons(); }, [activeArticle]);
+
+            if (loading) {
+                return (
+                    <div className="fixed inset-0 flex flex-col items-center justify-center bg-white z-[100]">
+                        <div className="w-12 h-12 border-4 border-emerald-100 border-t-emerald-600 rounded-full animate-spin"></div>
+                        <h1 className="mt-4 text-3xl font-black text-emerald-600 italic tracking-tighter italic">TechWiki</h1>
+                    </div>
+                );
             }
-        }
-    </script>
 
+            return (
+                <div className="min-h-screen bg-slate-50 flex flex-col">
+                    <nav className="bg-white border-b sticky top-0 z-50 px-6 py-4 flex justify-between items-center shadow-sm">
+                        <div className="flex items-center gap-2">
+                            <span className="text-2xl font-black text-emerald-600 italic tracking-tighter">TechWiki</span>
+                        </div>
+                        <div className="hidden md:block text-slate-400 text-sm font-medium italic">"Knowledge for the Next Billion Users"</div>
+                        <i data-lucide="menu" className="text-slate-600 cursor-pointer"></i>
+                    </nav>
+
+                    <div className="flex flex-1 overflow-hidden">
+                        {/* Sidebar - Perfect for iPad scrolling */}
+                        <aside className="hidden lg:block w-80 bg-white border-r overflow-y-auto custom-scrollbar">
+                            <div className="p-4 font-bold text-xs uppercase tracking-widest text-slate-400 border-b">40 Tech Articles</div>
+                            {fullArticles.map(art => (
+                                <button 
+                                    key={art.id}
+                                    onClick={() => setActiveArticle(art)}
+                                    className={`w-full text-left p-4 hover:bg-emerald-50 border-b transition-colors flex items-center gap-3 ${activeArticle.id === art.id ? 'bg-emerald-50 border-r-4 border-r-emerald-600' : ''}`}
+                                >
+                                    <i data-lucide={art.icon} className={`w-4 h-4 ${activeArticle.id === art.id ? 'text-emerald-600' : 'text-slate-400'}`}></i>
+                                    <span className={`text-sm font-semibold ${activeArticle.id === art.id ? 'text-emerald-700' : 'text-slate-600'}`}>{art.title}</span>
+                                </button>
+                            ))}
+                        </aside>
+
+                        {/* Article Content */}
+                        <main className="flex-1 overflow-y-auto p-6 md:p-12">
+                            <div className="max-w-3xl mx-auto bg-white rounded-2xl border shadow-sm p-8 md:p-16">
+                                <div className="flex items-center gap-2 text-emerald-700 text-[10px] font-bold uppercase tracking-widest mb-6">
+                                    <i data-lucide="book-open" className="w-4 h-4"></i>
+                                    TechWiki Expert Verified
+                                </div>
+                                <h1 className="text-4xl md:text-6xl font-black text-slate-900 leading-none mb-8">
+                                    {activeArticle.title}
+                                </h1>
+                                <div className="aspect-video bg-slate-100 rounded-3xl mb-10 flex flex-col items-center justify-center text-emerald-600 border-2 border-dashed border-emerald-200">
+                                    <i data-lucide={activeArticle.icon} className="w-20 h-20 mb-4 opacity-20"></i>
+                                    <span className="font-mono text-xs uppercase tracking-widest opacity-50">Visualizing Technology...</span>
+                                </div>
+                                <p className="text-xl text-slate-600 leading-relaxed mb-8 first-letter:text-5xl first-letter:font-bold first-letter:text-emerald-600 first-letter:mr-2 first-letter:float-left">
+                                    {activeArticle.content} This article explores the intricate details of how {activeArticle.title.replace("How to ", "")} impacts the global economy and individual users. As we move further into 2026, the convergence of hardware efficiency and AI software continues to redefine the boundaries of what is possible.
+                                </p>
+                                <div className="bg-emerald-50 border-l-4 border-emerald-500 p-6 rounded-r-xl">
+                                    <h4 className="font-bold text-emerald-800 flex items-center gap-2 mb-2">
+                                        <i data-lucide="lightbulb" className="w-5 h-5"></i> TechWiki Quick Tip
+                                    </h4>
+                                    <p className="text-emerald-700 text-sm italic">Always check for the latest firmware updates and security patches to ensure your digital tools remain safe and efficient in this rapidly evolving landscape.</p>
+                                </div>
+                            </div>
+                        </main>
+                    </div>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
 </body>
 </html>
